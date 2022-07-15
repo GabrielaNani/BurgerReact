@@ -149,13 +149,13 @@ function App() {
                         <img className="images" src={srcs.patties.otherPatty} alt="bun"/>
                         <span>Other Patty</span> <span> {prices.patties.otherPatty}</span> <span
                         onClick={()=>
-                            renderImage(OtherPatty)}> + </span>
+                            renderImage(OtherPatty, prices.patties.otherPatty)}> + </span>
                     </div>
                     <div className="square">
                         <img className="images" src={srcs.patties.somePatty} alt="bun"/>
                         <span>Some Patty</span> <span> {prices.patties.somePatty}</span> <span
                         onClick={()=>
-                            renderImage(SomePatty)}> + </span>
+                            renderImage(SomePatty, prices.patties.somePatty)}> + </span>
                     </div>
                     </div>
             </div>
@@ -170,25 +170,25 @@ function App() {
                     <img className="images" src={srcs.vegetables.tomatoes} alt="bun"/>
                     <span>Tomato</span> <span> {prices.vegetables.tomatoes}</span> <span
                     onClick={()=>
-                        renderImage(Tomatoes)}> + </span>
+                        renderImage(Tomatoes, prices.vegetables.tomatoes)}> + </span>
                 </div>
                 <div className="square">
                     <img className="images" src={srcs.vegetables.lettuce} alt="bun"/>
                     <span>Lettuce</span> <span> {prices.vegetables.lettuce}</span> <span
                     onClick={()=>
-                        renderImage(Lettuce)}> + </span>
+                        renderImage(Lettuce, prices.vegetables.lettuce)}> + </span>
                 </div>
                 <div className="square">
                     <img className="images" src={srcs.vegetables.onions} alt="bun"/>
                     <span>Onions</span> <span> {prices.vegetables.onions}</span> <span
                     onClick={()=>
-                        renderImage(Onions)}> + </span>
+                        renderImage(Onions, prices.vegetables.onions)}> + </span>
                 </div>
                 <div className="square">
                     <img className="images" src={srcs.vegetables.pickles} alt="bun"/>
                     <span>Pickles</span> <span> {prices.vegetables.pickles}</span> <span
                     onClick={()=>
-                        renderImage(Pickles)}> + </span>
+                        renderImage(Pickles, prices.vegetables.pickles)}> + </span>
                 </div>
             </div>
         </div>
@@ -203,13 +203,13 @@ function App() {
                         <img className="images" src={srcs.cheese.normalCheese} alt="bun"/>
                         <span>Normal Cheese</span> <span> {prices.cheese.normalCheese}</span> <span
                         onClick={()=>
-                            renderImage(NormalCheese)}> + </span>
+                            renderImage(NormalCheese, prices.cheese.normalCheese)}> + </span>
                     </div>
                     <div className="square">
                         <img className="images" src={srcs.cheese.otherCheese} alt="bun"/>
                         <span>Other Cheese</span> <span> {prices.cheese.otherCheese}</span> <span
                         onClick={()=>
-                            renderImage(OtherCheese)}> + </span>
+                            renderImage(OtherCheese, prices.cheese.otherCheese)}> + </span>
                     </div>
                 </div>
             </div>
@@ -224,19 +224,19 @@ function App() {
                         <img className="images" src={srcs.sauce.ketchup} alt="bun"/>
                         <span>Ketchup</span> <span> {prices.sauce.ketchup}</span> <span
                         onClick={()=>
-                            renderImage(Ketchup)}> + </span>
+                            renderImage(Ketchup, prices.sauce.ketchup)}> + </span>
                     </div>
                     <div className="square">
                         <img className="images" src={srcs.sauce.bbq} alt="bun"/>
                         <span>Bbq</span> <span> {prices.sauce.bbq}</span> <span
                         onClick={()=>
-                            renderImage(Bbq)}> + </span>
+                            renderImage(Bbq, prices.sauce.bbq)}> + </span>
                     </div>
                     <div className="square">
                         <img className="images" src={srcs.sauce.garlic} alt="bun"/>
                         <span>Garlic</span> <span> {prices.sauce.garlic}</span> <span
                         onClick={()=>
-                            renderImage(Garlic)}> + </span>
+                            renderImage(Garlic, prices.sauce.garlic)}> + </span>
                     </div>
                 </div>
             </div>
@@ -283,7 +283,7 @@ function App() {
                         </div>
                         <div className="ing">
                             {components.length !== 0 &&
-                            components.map((Image, i) => <Image key={i}/>)}
+                                components.map((Image, i) => <Image key={i}/>)}
                         </div>
                         <div className="bottom-bun">
                             <img className="imag" src={bottomBunSrc} alt=""/>
@@ -293,7 +293,8 @@ function App() {
                 <div className="right">
                     <p>My Burger</p>
                     <p>Price: <span> {price * amount} </span> <span>lei</span></p>
-                    <p>Amount: <span onClick={handleSetSub}>-</span> <span>{amount}</span> <span onClick={handleSetAdding} >+</span></p>
+                    <p>Amount: <span onClick={handleSetSub}>-</span> <span>{amount}</span>
+                        <span onClick={handleSetAdding} >+</span></p>
                     <input type="submit" value="Buy" onClick={()=> alert(`Your Burger Costs ${price * amount} lei`)}/>
                 </div>
             </div>
