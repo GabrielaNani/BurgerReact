@@ -110,7 +110,7 @@ function App() {
     }
 
     const handleSetAdding = () => {
-        setAmount(amount + 1)
+        setAmount(amount + 1);
     }
     const handleSetSub = () => {
         if(amount > 1){
@@ -292,9 +292,9 @@ function App() {
                 </div>
                 <div className="right">
                     <p>My Burger</p>
-                    <p>Price: <span> {price} </span> <span>lei</span></p>
+                    <p>Price: <span> {price * amount} </span> <span>lei</span></p>
                     <p>Amount: <span onClick={handleSetSub}>-</span> <span>{amount}</span> <span onClick={handleSetAdding} >+</span></p>
-                    <input type="submit" value="Buy"/>
+                    <input type="submit" value="Buy" onClick={()=> alert(`Your Burger Costs ${price * amount} lei`)}/>
                 </div>
             </div>
         </div>
