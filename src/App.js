@@ -69,32 +69,46 @@ function App() {
     const [amount, setAmount] = useState(1);
     const [topBunSrc, setTopBunSrc] = useState("");
     const [bottomBunSrc, setBottomBunSrc] = useState("");
+    const [components, setComponents] = useState([]);
 
-    const handleSetBuns = () => {
-        setSection(Buns)
+    const BeefPatty = () => <img className="image" src={srcs.patties.beefPatty} alt=""/>;
+    const OtherPatty = () => <img className="image" src={srcs.patties.otherPatty} alt=""/>;
+    const SomePatty = () => <img className="image" src={srcs.patties.somePatty} alt=""/>;
+    const Tomatoes = () => <img className="image" src={srcs.vegetables.tomatoes} alt=""/>;
+    const Lettuce = () => <img className="image" src={srcs.vegetables.lettuce} alt=""/>;
+    const Onions = () => <img className="image" src={srcs.vegetables.onions} alt=""/>;
+    const Pickles = () => <img className="image" src={srcs.vegetables.pickles} alt=""/>;
+    const NormalCheese = () => <img className="image" src={srcs.cheese.normalCheese} alt=""/>;
+    const OtherCheese = () => <img className="image" src={srcs.cheese.otherCheese} alt=""/>;
+    const Ketchup = () => <img className="image" src={srcs.sauce.ketchup} alt=""/>;
+    const Bbq = () => <img className="image" src={srcs.sauce.bbq} alt=""/>;
+    const Garlic = () => <img className="image" src={srcs.sauce.garlic} alt=""/>;
+
+    const handleSections = (component) => {
+        setSection(component)
     }
-    const handleSetPatties = () => {
-        setSection(Patties)
+
+     const handleSetBunsSrc = (top, bottom) => {
+        setTopBunSrc(top);
+        setBottomBunSrc(bottom);
+        if(price === 0){
+            setPrice(5)
+        }
+        else{
+            setPrice(price)
+        }
     }
-    const handleSetVegetables = () => {
-        setSection(Vegetables)
+
+    const renderImage = (component, prices) => {
+        if (topBunSrc === "" && bottomBunSrc === "") {
+            return ""
+        } else {
+            const newComponents = [...components, component];
+            setComponents(newComponents);
+            setPrice(price + prices)
+        }
     }
-    const handleSetCheese = () => {
-        setSection(Cheese)
-    }
-    const handleSetSauce = () => {
-        setSection(Sauce)
-    }
-    const handleSetWhiteBunsSrc = () => {
-        setTopBunSrc(srcs.buns.whiteBuns.topBun);
-        setBottomBunSrc(srcs.buns.whiteBuns.bottomBun);
-        setPrice(5)
-    }
-    const handleSetBlackBunsSrc = () => {
-        setTopBunSrc(srcs.buns.blackBuns.topBun);
-        setBottomBunSrc(srcs.buns.blackBuns.bottomBun);
-        setPrice(5)
-    }
+
     const handleSetAdding = () => {
         setAmount(amount + 1)
     }
@@ -107,15 +121,14 @@ function App() {
     function Buns() {
         return (
             <div>
-                <p>Ingredients:</p>
                 <div className="ingredients">
                     <div className="square">
                         <img className="images" src={srcs.buns.whiteBuns.whiteBun} alt="bun"/>
-                        <span>White Bun</span> <span> {prices.buns.whiteBuns}</span> <span onClick={handleSetWhiteBunsSrc}> + </span>
+                        <span>White Bun</span> <span> {prices.buns.whiteBuns}</span> <span onClick={()=> handleSetBunsSrc(srcs.buns.whiteBuns.topBun, srcs.buns.whiteBuns.bottomBun)}> + </span>
                     </div>
                     <div className="square">
                         <img className="images" src={srcs.buns.blackBuns.blackBun} alt="bun"/>
-                        <span>Black Bun</span> <span> {prices.buns.blackBuns}</span> <span onClick={handleSetBlackBunsSrc}> + </span>
+                        <span>Black Bun</span> <span> {prices.buns.blackBuns}</span> <span onClick={()=> handleSetBunsSrc(srcs.buns.blackBuns.topBun, srcs.buns.blackBuns.bottomBun)}> + </span>
                     </div>
                 </div>
             </div>
@@ -125,21 +138,26 @@ function App() {
     function Patties() {
         return (
             <div>
-                <p>Ingredients:</p>
                 <div className="ingredients">
                     <div className="square">
                         <img className="images" src={srcs.patties.beefPatty} alt="bun"/>
-                        <span>Beef Patty</span> <span> {prices.patties.beefPatty}</span> <span> + </span>
+                        <span>Beef Patty</span> <span> {prices.patties.beefPatty}</span> <span
+                        onClick={()=>
+                        renderImage(BeefPatty, prices.patties.beefPatty)}> + </span>
                     </div>
                     <div className="square">
                         <img className="images" src={srcs.patties.otherPatty} alt="bun"/>
-                        <span>Other Patty</span> <span> {prices.patties.otherPatty}</span> <span> + </span>
+                        <span>Other Patty</span> <span> {prices.patties.otherPatty}</span> <span
+                        onClick={()=>
+                            renderImage(OtherPatty)}> + </span>
                     </div>
                     <div className="square">
                         <img className="images" src={srcs.patties.somePatty} alt="bun"/>
-                        <span>Some Patty</span> <span> {prices.patties.somePatty}</span> <span> + </span>
+                        <span>Some Patty</span> <span> {prices.patties.somePatty}</span> <span
+                        onClick={()=>
+                            renderImage(SomePatty)}> + </span>
                     </div>
-                </div>
+                    </div>
             </div>
         )
     }
@@ -147,23 +165,30 @@ function App() {
     function Vegetables() {
         return (
         <div>
-            <p>Ingredients:</p>
             <div className="ingredients">
                 <div className="square">
                     <img className="images" src={srcs.vegetables.tomatoes} alt="bun"/>
-                    <span>Tomato</span> <span> {prices.vegetables.tomatoes}</span> <span> + </span>
+                    <span>Tomato</span> <span> {prices.vegetables.tomatoes}</span> <span
+                    onClick={()=>
+                        renderImage(Tomatoes)}> + </span>
                 </div>
                 <div className="square">
                     <img className="images" src={srcs.vegetables.lettuce} alt="bun"/>
-                    <span>Lettuce</span> <span> {prices.vegetables.lettuce}</span> <span> + </span>
+                    <span>Lettuce</span> <span> {prices.vegetables.lettuce}</span> <span
+                    onClick={()=>
+                        renderImage(Lettuce)}> + </span>
                 </div>
                 <div className="square">
                     <img className="images" src={srcs.vegetables.onions} alt="bun"/>
-                    <span>Onions</span> <span> {prices.vegetables.onions}</span> <span> + </span>
+                    <span>Onions</span> <span> {prices.vegetables.onions}</span> <span
+                    onClick={()=>
+                        renderImage(Onions)}> + </span>
                 </div>
                 <div className="square">
                     <img className="images" src={srcs.vegetables.pickles} alt="bun"/>
-                    <span>Pickles</span> <span> {prices.vegetables.pickles}</span> <span> + </span>
+                    <span>Pickles</span> <span> {prices.vegetables.pickles}</span> <span
+                    onClick={()=>
+                        renderImage(Pickles)}> + </span>
                 </div>
             </div>
         </div>
@@ -173,15 +198,18 @@ function App() {
     function Cheese() {
         return (
             <div>
-                <p>Ingredients:</p>
                 <div className="ingredients">
                     <div className="square">
                         <img className="images" src={srcs.cheese.normalCheese} alt="bun"/>
-                        <span>Normal Cheese</span> <span> {prices.cheese.normalCheese}</span> <span> + </span>
+                        <span>Normal Cheese</span> <span> {prices.cheese.normalCheese}</span> <span
+                        onClick={()=>
+                            renderImage(NormalCheese)}> + </span>
                     </div>
                     <div className="square">
                         <img className="images" src={srcs.cheese.otherCheese} alt="bun"/>
-                        <span>Other Cheese</span> <span> {prices.cheese.otherCheese}</span> <span> + </span>
+                        <span>Other Cheese</span> <span> {prices.cheese.otherCheese}</span> <span
+                        onClick={()=>
+                            renderImage(OtherCheese)}> + </span>
                     </div>
                 </div>
             </div>
@@ -191,19 +219,24 @@ function App() {
     function Sauce() {
         return (
             <div>
-                <p>Ingredients:</p>
                 <div className="ingredients">
                     <div className="square">
                         <img className="images" src={srcs.sauce.ketchup} alt="bun"/>
-                        <span>Ketchup</span> <span> {prices.sauce.ketchup}</span> <span> + </span>
+                        <span>Ketchup</span> <span> {prices.sauce.ketchup}</span> <span
+                        onClick={()=>
+                            renderImage(Ketchup)}> + </span>
                     </div>
                     <div className="square">
                         <img className="images" src={srcs.sauce.bbq} alt="bun"/>
-                        <span>Bbq</span> <span> {prices.sauce.bbq}</span> <span> + </span>
+                        <span>Bbq</span> <span> {prices.sauce.bbq}</span> <span
+                        onClick={()=>
+                            renderImage(Bbq)}> + </span>
                     </div>
                     <div className="square">
                         <img className="images" src={srcs.sauce.garlic} alt="bun"/>
-                        <span>Garlic</span> <span> {prices.sauce.garlic}</span> <span> + </span>
+                        <span>Garlic</span> <span> {prices.sauce.garlic}</span> <span
+                        onClick={()=>
+                            renderImage(Garlic)}> + </span>
                     </div>
                 </div>
             </div>
@@ -216,23 +249,23 @@ function App() {
                 <h2 className="title"> Build Your Burger </h2>
             </div>
             <div className="section">
-                <div onClick={handleSetBuns} className="sections">
+                <div onClick={() => handleSections(Buns)} className="sections">
                     <img className="img bun" src={srcs.buns.whiteBuns.whiteBun} alt="bun"/>
                     <div className="text">Bun</div>
                 </div>
-                <div onClick={handleSetPatties} className="sections">
+                <div onClick={() => handleSections(Patties)} className="sections">
                     <img className="img patty" src={srcs.patties.beefPatty} alt="patty"/>
                     <div className="text">Patty</div>
                 </div>
-                <div onClick={handleSetVegetables} className="sections">
+                <div onClick={() => handleSections(Vegetables)} className="sections">
                     <img className="img vegetables" src={srcs.vegetables.tomatoes} alt="vegetables"/>
                     <div className="text">Vegetables</div>
                 </div>
-                <div onClick={handleSetCheese} className="sections">
+                <div onClick={() => handleSections(Cheese)} className="sections">
                     <img className="img cheese" src={srcs.cheese.normalCheese} alt="cheese"/>
                     <div className="text">Cheese</div>
                 </div>
-                <div onClick={handleSetSauce} className="sections">
+                <div onClick={() => handleSections(Sauce)} className="sections">
                     <img className="img sauce" src={srcs.sauce.ketchup} alt="sauce"/>
                     <div className="text">Sauce</div>
                 </div>
@@ -240,16 +273,20 @@ function App() {
             <br/>
             <div className="main">
                 <div className="left">
+                    <p>Ingredients:</p>
                     {section}
                 </div>
                 <div className="middle">
                     <div className="buns">
                         <div className="top-bun">
-                            <img className="image" src={topBunSrc} alt=""/>
+                            <img className="imag" src={topBunSrc} alt=""/>
                         </div>
-                        <div className="ing"> </div>
+                        <div className="ing">
+                            {components.length !== 0 &&
+                            components.map((Image, i) => <Image key={i}/>)}
+                        </div>
                         <div className="bottom-bun">
-                            <img className="image" src={bottomBunSrc} alt=""/>
+                            <img className="imag" src={bottomBunSrc} alt=""/>
                         </div>
                     </div>
                 </div>
@@ -257,6 +294,7 @@ function App() {
                     <p>My Burger</p>
                     <p>Price: <span> {price} </span> <span>lei</span></p>
                     <p>Amount: <span onClick={handleSetSub}>-</span> <span>{amount}</span> <span onClick={handleSetAdding} >+</span></p>
+                    <input type="submit" value="Buy"/>
                 </div>
             </div>
         </div>

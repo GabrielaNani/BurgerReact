@@ -43,9 +43,10 @@ body {
   height: 100px;
 }
 
-.image{
+.image, .imag{
   background-size: inherit;
   border-color: rgba(0, 0, 0, 0);
   width: 150px;
+  display: flex;
 }
 
