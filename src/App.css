@@ -45,8 +45,15 @@ body {
 
 .image, .imag{
   background-size: inherit;
-  border-color: rgba(0, 0, 0, 0);
   width: 150px;
   display: flex;
+}
+
+.square, .info{
+  display: flex;
+  flex-direction: row;
+}
+.info{
+  align-items: flex-end;
 }
 
