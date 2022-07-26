@@ -112,10 +112,10 @@ const info = {
 const App = () => {
     const [amount, setAmount] = useState(1);
     const [price, setPrice] = useState(0);
-    const [section, setSection] = useState([]);
-    const [number, setNumber] = useState(0)
+    const [ing, setIng] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState("");
-    const [btnClicked, setBtnClicked] = useState("");
+    const [topBun, setTopBun] = useState("");
+    const [btmBun, setBtmBun] = useState("");
 
     const handleSetAdding = () => {
         setAmount(amount + 1);
@@ -125,6 +125,24 @@ const App = () => {
             setAmount(amount - 1)
         }
     }
+    const handleIngClick = (item) => {
+        if( item.name.includes("Bun")){
+            setTopBun(item.topBun);
+            setBtmBun(item.bottomBun);
+            price === 0 ? setPrice(5) : setPrice(price);
+        }
+        else{
+            ing.push(item);
+            setPrice(price + item.price)
+        }
+
+    }
+
+    const remove = (index, prices) => {
+        setIng(ing.filter((el, idx) => idx !== index));
+        setPrice(price - prices);
+    }
+    
     return (
         <div>
             <div className="container">
@@ -153,15 +171,7 @@ const App = () => {
                                     <img className="image" src={item.src} alt=""/>
                                     <div className="info">
                                         <p>{item.name} </p>
-                                        <p onClick={() => {
-                                            // setBtnClicked(item.name);
-                                            setNumber(number + 1);
-                                            const image = (
-                                                <div key={number}>
-                                                    <img className="image" src={item.src} alt=""/>
-                                                </div>)
-                                             section.push(image)
-                                        }}> + </p></div>
+                                        <p onClick={() => handleIngClick(item)}> + </p></div>
                                 </div>
                             </div>
                         )
@@ -169,33 +179,14 @@ const App = () => {
                 </div>
                 <div className="middle">
                     <div className="ing">
-                        {/*{ btnClicked && info[[selectedCategory]].subCat.map((item, index) => {*/}
-                        {/*    if(btnClicked === item.name && btnClicked.includes("Bun")) {*/}
-                        {/*        return (*/}
-                        {/*            <div key={index}>*/}
-                        {/*                <img className="image" src={item.topBun} alt=""/>*/}
-                        {/*                {section}*/}
-                        {/*                <img className="image" src={item.bottomBun} alt=""/>*/}
-                        {/*            </div>*/}
-                        {/*        )*/}
-                        {/*    }*/}
-                        {/*})}*/}
-
-                        {/*{btnClicked && info[selectedCategory].subCat.map((category, index) => {*/}
-                        {/*    // console.log(category);*/}
-                        {/*    if(btnClicked === category.name){*/}
-                        {/*        return (*/}
-                        {/*            // <div className="sections" key={index}>*/}
-                        {/*            //     <img className="img" src={category.src} alt=""/>*/}
-                        {/*            //     <p className="text">{category.name}</p>*/}
-                        {/*            // </div>*/}
-                        {/*            <div key={index}>*/}
-                        {/*                <div>{ing.map((item, index) => <img className="image" key={index} src={item} alt="ingredient"/>)}</div>*/}
-                        {/*            </div>*/}
-                        {/*        )*/}
-                        {/*    }*/}
-                        {/*})}*/}
-                        {section}
+                        <img className="image" src={topBun} alt=""/>
+                        {ing.map((item, index) =>{
+                            return (
+                                <img onClick={()=> remove(index, item.price)
+                                } key={index} className="image" src={item.src} alt=""/>
+                            )
+                        })}
+                        <img className="image" src={btmBun} alt=""/>
                     </div>
                 </div>
                 <div className="right">
